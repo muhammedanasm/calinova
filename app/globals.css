@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts mapping from CSS variables */
+  --font-clash: var(--font-clash);
+  --font-satoshi: var(--font-satoshi);
+
+  /* Custom Brand Gradient */
+  --background-brand-gradient: linear-gradient(
+    83.45deg,
+    #33e2c5 -61.18%,
+    #0681bf 88.98%
+  );
+
+  /* Adding some custom colors if needed */
+  --color-brand-cyan: #33e2c5;
+  --color-brand-blue: #0681bf;
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-satoshi), sans-serif;
+}
+
+/* Custom utility for the gradient text */
+.text-gradient {
+  background: var(--background-brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
