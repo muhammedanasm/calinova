@@ -53,10 +53,6 @@ const Navbar = () => {
         ))}
       </div>
 
-      {/* Button */}
-      {/* <button className="px-6 py-2 rounded-full border border-white/20 text-[10px] uppercase tracking-widest hover:bg-[linear-gradient(83.45deg,#33E2C5_-61.18%,#0681BF_88.98%)] hover:border-transparent transition-all duration-500">
-        Let's Talk
-      </button> */}
       {/* Premium Button with Shine Effect */}
       <button className="relative group overflow-hidden px-6 py-2 rounded-full border border-white/20 text-[10px] uppercase tracking-widest hover:bg-[linear-gradient(83.45deg,#33E2C5_-61.18%,#0681BF_88.98%)] hover:border-transparent transition-all duration-500 cursor-pointer">
         {/* 1. Shine Sweep Effect */}

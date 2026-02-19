@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Preloader from "./Preloader";
 import Navbar from "./Navbar";
 import SmoothScroll from "../common/SmoothScroll";
+import Footer from "./Footer";
 
 export default function MainWrapper({
   children,
@@ -11,7 +12,6 @@ export default function MainWrapper({
 }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  // അനിമേഷൻ സ്മൂത്ത് ആക്കാൻ ബോഡി സ്ക്രോൾ തടയുക
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = "hidden";
@@ -34,7 +34,7 @@ export default function MainWrapper({
         <SmoothScroll>
           <Navbar />
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </SmoothScroll>
       </div>
     </>

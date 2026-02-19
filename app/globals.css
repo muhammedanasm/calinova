@@ -34,3 +34,28 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* src/app/globals.css */
+.reveal-text {
+  background-image: linear-gradient(90deg, #33e2c5, #0681bf);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+/* card animation */
+@theme {
+  --animate-float: floatCard 4s ease-in-out infinite;
+
+  @keyframes floatCard {
+    0%,
+    100% {
+      margin-top: 0px;
+    }
+    50% {
+      margin-top: -20px;
+    }
+  }
+}

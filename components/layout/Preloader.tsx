@@ -1,151 +1,131 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-  const loaderRef = useRef(null);
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
   const logoRef = useRef(null);
+  const slatsRef = useRef<HTMLDivElement[]>([]);
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      onComplete: onComplete, // Animation കഴിയുമ്പോൾ main content കാണിക്കാൻ
-    });
+    const ctx = gsap.context(() => {
+      const mainTl = gsap.timeline();
 
-    // 1. Initial State: Logo opacity 0 and scale up
-    gsap.set(logoRef.current, { opacity: 0, scale: 0.5 });
+      // 1. Initial Reveal of Content (Blur to Clear)
+      mainTl.fromTo(
+        contentRef.current,
+        { opacity: 0, filter: "blur(10px)", scale: 1.1 },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        },
+      );
 
-    tl.to(logoRef.current, {
-      opacity: 1,
-      scale: 1,
-      duration: 1.2,
-      ease: "expo.out",
-    })
-      .to(logoRef.current, {
-        scale: 1.1,
-        duration: 1,
-        yoyo: true,
-        repeat: 1,
-        ease: "power1.inOut",
-      })
-      // 2. Logo moves and preloader fades out
-      .to(loaderRef.current, {
-        yPercent: -100,
-        duration: 1,
-        ease: "expo.inOut",
-        delay: 0.5,
+      // 2. Optimized Counter Logic (Synced perfectly)
+      const counterObj = { value: 0 };
+      gsap.to(counterObj, {
+        value: 100,
+        duration: 2,
+        ease: "power2.inOut",
+        onUpdate: () => setPercentage(Math.floor(counterObj.value)),
+        onComplete: () => {
+          startExitSequence();
+        },
       });
+
+      function startExitSequence() {
+        const exitTl = gsap.timeline({
+          onComplete: () => {
+            onComplete();
+            gsap.set(containerRef.current, { display: "none" });
+          },
+        });
+
+        exitTl
+          .to(contentRef.current, {
+            opacity: 0,
+            y: -40,
+            duration: 0.6,
+            ease: "power4.in",
+          })
+          .to(
+            slatsRef.current,
+            {
+              yPercent: -100,
+              stagger: 0.05,
+              duration: 0.8,
+              ease: "expo.inOut",
+            },
+            "-=0.2",
+          );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
   }, [onComplete]);
 
   return (
     <div
-      ref={loaderRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+      ref={containerRef}
+      className="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-transparent"
     >
-      <div ref={logoRef} className="relative w-40 h-20 md:w-64 md:h-32">
-        <Image
-          src="/images/logo-icon.svg" // ആ rounded gradient logo മാത്രം
-          alt="Calinova Logo"
-          fill
-          className="object-contain"
-        />
+      {/* Premium Vertical Slats (The Reveal Panels) */}
+      <div className="absolute inset-0 flex">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              if (el) slatsRef.current[i] = el;
+            }}
+            className="h-full flex-1 bg-[#010206] border-r border-white/[0.02]"
+          />
+        ))}
+      </div>
+
+      {/* Main Content */}
+      <div
+        ref={contentRef}
+        className="relative z-[1000] flex flex-col items-center"
+      >
+        {/* Glowing Logo */}
+        <div ref={logoRef} className="relative w-44 h-24 md:w-64 md:h-32 mb-4">
+          <div className="absolute inset-0 bg-brand-cyan/20 blur-[80px] rounded-full" />
+          <Image
+            src="/images/logo-icon.svg"
+            alt="Calinova"
+            fill
+            className="object-contain relative z-10"
+            priority
+          />
+        </div>
+
+        {/* Minimalist Counter */}
+        <div className="overflow-hidden h-20 md:h-32 flex items-center">
+          <span className="font-clash text-white text-6xl md:text-[120px] font-black tracking-tighter leading-none">
+            {percentage}
+          </span>
+          <span className="text-brand-cyan text-2xl md:text-4xl font-black self-start mt-2 md:mt-6 ml-2">
+            %
+          </span>
+        </div>
+
+        {/* Sophisticated Tagline */}
+        <div className="mt-4 flex flex-col items-center">
+          <p className="text-white/30 text-[10px] uppercase tracking-[0.6em] font-medium">
+            Establishing the Digital Era
+          </p>
+          {/* Animated Grain Overlay for premium feel */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150" />
+        </div>
       </div>
     </div>
   );
 };
 
 export default Preloader;
-
-// "use client";
-// import { useEffect, useRef } from "react";
-// import gsap from "gsap";
-// import Image from "next/image";
-
-// const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-//   const containerRef = useRef(null);
-//   const logoRef = useRef(null);
-//   const topShutterRef = useRef(null);
-//   const bottomShutterRef = useRef(null);
-
-//   useEffect(() => {
-//     const tl = gsap.timeline({
-//       onComplete: onComplete,
-//     });
-
-//     // 1. Initial State
-//     gsap.set(logoRef.current, { opacity: 0, scale: 0.7, y: 20 });
-
-//     tl.to(logoRef.current, {
-//       opacity: 1,
-//       scale: 1,
-//       y: 0,
-//       duration: 1.5,
-//       ease: "power4.out",
-//     })
-//       .to(logoRef.current, {
-//         scale: 1.05,
-//         filter: "drop-shadow(0 0 20px rgba(51, 226, 197, 0.6))",
-//         duration: 1,
-//         yoyo: true,
-//         repeat: 1,
-//         ease: "sine.inOut",
-//       })
-//       // 2. Shutter Opening Effect
-//       .to(logoRef.current, {
-//         opacity: 0,
-//         scale: 1.2,
-//         duration: 0.5,
-//         ease: "power2.in",
-//       })
-//       .to(
-//         topShutterRef.current,
-//         {
-//           yPercent: -100,
-//           duration: 1.2,
-//           ease: "expo.inOut",
-//         },
-//         "open",
-//       ) // "open" label use ചെയ്ത് ഒരേ സമയം രണ്ട് പാനലും മൂവ് ചെയ്യിക്കുന്നു
-//       .to(
-//         bottomShutterRef.current,
-//         {
-//           yPercent: 100,
-//           duration: 1.2,
-//           ease: "expo.inOut",
-//         },
-//         "open",
-//       )
-//       .set(containerRef.current, { display: "none" }); // പണി കഴിഞ്ഞാൽ ഫുൾ ഹൈഡ് ചെയ്യുക
-//   }, [onComplete]);
-
-//   return (
-//     <div
-//       ref={containerRef}
-//       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
-//     >
-//       {/* Top Shutter Panel */}
-//       <div
-//         ref={topShutterRef}
-//         className="absolute top-0 left-0 w-full h-1/2 bg-[#0a0a0a] z-[101] border-b border-white/5"
-//       />
-
-//       {/* Bottom Shutter Panel */}
-//       <div
-//         ref={bottomShutterRef}
-//         className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0a0a0a] z-[101] border-t border-white/5"
-//       />
-
-//       {/* Center Logo Icon */}
-//       <div ref={logoRef} className="relative z-[102] w-32 h-16 md:w-52 md:h-28">
-//         <Image
-//           src="/images/logo-icon.svg"
-//           alt="Calinova Logo"
-//           fill
-//           className="object-contain"
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Preloader;

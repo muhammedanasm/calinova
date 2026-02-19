@@ -10,11 +10,9 @@ const Hero = () => {
 
   useGSAP(
     () => {
-      // MainWrapper-ൽ കണ്ടന്റ് വിസിബിൾ ആകുമ്പോൾ മാത്രം അനിമേഷൻ തുടങ്ങാൻ
-      // നമ്മൾ ഒരു ചെറിയ ഡിലേ (preloader ടൈം) കൂടി കണക്കിലെടുക്കുന്നു.
       const tl = gsap.timeline({ delay: 0.2 });
 
-      // 1. Heading അനിമേഷൻ (Letters and Logo)
+      // 1. (Letters and Logo)
       tl.from(".hero-title-part", {
         y: 120,
         opacity: 0,
@@ -80,7 +78,7 @@ const Hero = () => {
       <div className="container mx-auto px-6 md:px-12 z-10 grid grid-cols-1 md:grid-cols-[2fr_1fr] items-center gap-12">
         {/* Left Side: Content */}
         <div>
-          <h1 className="hero-text text-5xl md:text-5xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-white">
+          <h1 className="hero-text font-clash text-5xl md:text-5xl lg:text-7xl font-bold tracking-[2px] leading-[1.1] text-white">
             Innovation’s Next <br />
             Chapter Begins Here
           </h1>
@@ -112,7 +110,7 @@ const Hero = () => {
               alt="Calinova Innovation Hub"
               fill
               className="object-cover hover:scale-110 transition-transform duration-700"
-              priority // ഹീറോ സെക്ഷൻ ആയതുകൊണ്ട് വേഗത്തിൽ ലോഡ് ആവാൻ
+              priority
             />
           </div>
           <p className="mt-4 text-white/50 text-sm max-w-[300px] leading-relaxed">
