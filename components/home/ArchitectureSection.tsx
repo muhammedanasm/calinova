@@ -72,7 +72,7 @@ const ArchitectureSection = () => {
     >
       <div className="absolute inset-0 pointer-events-none select-none z-0">
         <Image
-          src="/images/light.svg"
+          src="/images/Light.svg"
           alt="light"
           fill
           className="object-cover"

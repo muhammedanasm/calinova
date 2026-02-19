@@ -79,24 +79,48 @@ const TheHub = () => {
     { scope: containerRef },
   );
 
+  //   const handleMouseEnter = (img: string) => {
+  //     setActiveImage(img);
+  //     gsap.to(imageRevealRef.current, {
+  //       scale: 1,
+  //       opacity: 1,
+  //       rotate: 5,
+  //       duration: 0.4,
+  //       ease: "back.out(1.7)",
+  //     });
+  //   };
+
+  //   const handleMouseLeave = () => {
+  //     gsap.to(imageRevealRef.current, {
+  //       scale: 0.7,
+  //       opacity: 0,
+  //       rotate: 0,
+  //       duration: 0.3,
+  //       ease: "power2.in",
+  //       onComplete: () => setActiveImage(null),
+  //     });
+  //   };
+
   const handleMouseEnter = (img: string) => {
-    setActiveImage(img);
+    setActiveImage(img); // ആദ്യം ഇമേജ് സെറ്റ് ചെയ്യുക
     gsap.to(imageRevealRef.current, {
-      scale: 1,
       opacity: 1,
+      scale: 1,
       rotate: 5,
-      duration: 0.4,
-      ease: "back.out(1.7)",
+      duration: 0.5,
+      ease: "power3.out",
+      overwrite: true, // നിലവിലുള്ള പഴയ അനിമേഷനുകളെ ഇത് ഓവർറൈറ്റ് ചെയ്യും (Blink ഒഴിവാക്കാൻ)
     });
   };
 
   const handleMouseLeave = () => {
     gsap.to(imageRevealRef.current, {
-      scale: 0.7,
       opacity: 0,
+      scale: 0.7,
       rotate: 0,
-      duration: 0.3,
-      ease: "power2.in",
+      duration: 0.4,
+      ease: "power3.in",
+      overwrite: true,
     });
   };
 
@@ -192,7 +216,7 @@ transition-all duration-300"
       >
         {activeImage && (
           <Image
-            src={activeImage}
+            src={activeImage || ""}
             alt="preview"
             fill
             className="object-cover"
