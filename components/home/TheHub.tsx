@@ -224,6 +224,16 @@ transition-all duration-300"
         )}
       </div>
 
+      {/* top */}
+      <div className="absolute top-[-60px] left-0 w-full h-32 z-30 pointer-events-none">
+        <Image
+          src="/images/bottom-jagged.png"
+          alt="edge"
+          fill
+          // className="object-cover object-top"
+        />
+      </div>
+
       <div className="absolute bottom-[-65px] left-0 w-full h-32 z-30 pointer-events-none">
         <Image
           src="/images/bottom-jagged.png"

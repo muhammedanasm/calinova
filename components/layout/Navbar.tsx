@@ -30,7 +30,7 @@ const Navbar = () => {
       className="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-6 backdrop-blur-md bg-black/10"
     >
       {/* Logo */}
-      <Link href="/" className="relative w-32 h-8">
+      <Link href="/" className="relative w-32 h-8 cursor-pointer">
         <Image
           src="/images/logo.svg"
           alt="Calinova Logo"
@@ -54,15 +54,17 @@ const Navbar = () => {
       </div>
 
       {/* Premium Button with Shine Effect */}
-      <button className="relative group overflow-hidden px-6 py-2 rounded-full border border-white/20 text-[10px] uppercase tracking-widest hover:bg-[linear-gradient(83.45deg,#33E2C5_-61.18%,#0681BF_88.98%)] hover:border-transparent transition-all duration-500 cursor-pointer">
-        {/* 1. Shine Sweep Effect */}
-        <span className="absolute inset-0 flex justify-center">
-          <span className="relative h-full w-8 bg-white/40 blur-[15px] -skew-x-[45deg] -translate-x-[250%] group-hover:translate-x-[250%] transition-transform duration-700 ease-in-out" />
-        </span>
+      <Link href="/contact">
+        <button className="relative group overflow-hidden px-6 py-2 rounded-full border border-white/20 text-[10px] uppercase tracking-widest hover:bg-[linear-gradient(83.45deg,#33E2C5_-61.18%,#0681BF_88.98%)] hover:border-transparent transition-all duration-500 cursor-pointer">
+          {/* 1. Shine Sweep Effect */}
+          <span className="absolute inset-0 flex justify-center">
+            <span className="relative h-full w-8 bg-white/40 blur-[15px] -skew-x-[45deg] -translate-x-[250%] group-hover:translate-x-[250%] transition-transform duration-700 ease-in-out" />
+          </span>
 
-        {/* 2. Button Content */}
-        <span className="relative z-10">Let's Talk</span>
-      </button>
+          {/* 2. Button Content */}
+          <span className="relative z-10">Let's Talk</span>
+        </button>
+      </Link>
     </nav>
   );
 };

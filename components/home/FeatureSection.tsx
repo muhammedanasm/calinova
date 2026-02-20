@@ -188,19 +188,8 @@ const FeatureSection = () => {
         </div>
       </div>
 
-      {/* Bottom Torn Edge Image Section */}
-      <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-transparent z-0" />
-        <Image
-          src="/images/bottom-jagged.png"
-          alt="edge"
-          fill
-          className="object-cover object-top opacity-100 z-25"
-        />
-      </div>
-
       {/* Container for Figma Exported Lines */}
-      <div className="absolute bottom-[-30px] left-0 w-full h-[500px] pointer-events-none overflow-hidden">
+      <div className="absolute bottom-[-40px] left-0 w-full h-[500px] pointer-events-none overflow-hidden">
         {/* 1. Default Dim Lines  */}
         <div className="absolute inset-0 opacity-50">
           <Image
