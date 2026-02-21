@@ -8,7 +8,7 @@ import { useRef } from "react";
 const navLinks = [
   { name: "About", href: "/about" },
   { name: "The Hub", href: "/hub" },
-  { name: "Co-working Space", href: "/space" },
+  { name: "Co-working Space", href: "/co-working" },
   { name: "Set up your business", href: "/business" },
 ];
 
